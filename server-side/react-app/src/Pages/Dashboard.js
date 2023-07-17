@@ -8,14 +8,15 @@ export default function Dashboard(){
     const [text,settext]=useState("")
     const [audio,setaudio]=useState(null)
     const [id,setid]=useState("")
+    const [audios,setaudios]=useState([])
     useEffect(()=>{
-        const currentUser_ = localStorage.getItem("currentuser");
+        const currentUser_ =JSON.parse( localStorage.getItem("currentuser"));
 if (currentUser_ == null) {
 navigate("/");
 }
 else if(currentUser_!=null){
     console.log(currentUser_)
-    setid(currentUser_.id)
+    setid(currentUser_['id'])
 }
     },[])
     const handleInput=(e)=>{
@@ -27,11 +28,26 @@ else if(currentUser_!=null){
     const handleSubmit=async(e)=>{
         e.preventDefault()
         const formdata=new FormData()
+        formdata.append("id",id)
         formdata.append("text",text)
         formdata.append("audio",audio)
         const response =await axios.post('http://localhost:8080/uploadaudio',formdata)
         console.log(response)
     }
+    useEffect(()=>{
+        console.log(id)
+        axios.get('http://localhost:8080/uploadaudio?id='+id)
+        .then((response)=>{
+            console.log(response.data)
+            for(const i of response.data){
+                setaudios([...audios,i.Audio])
+            }
+
+        })
+    },[id])
+    useEffect(()=>{
+        console.log(audios)
+    },[audios])
     return(
         <div className="Dashboard">
             <Header userid="abcd"/>
@@ -42,6 +58,17 @@ else if(currentUser_!=null){
                     <input type='file' accept=".wav" onChange={handleAudioInput}/>
                     <button type="submit">submit</button>
                 </form>
+            </div>
+
+            <div className="Showbox">
+            {audios.forEach((audio)=>{
+                return (
+                    <audio controls>
+                    <source src="./audios/64b420d77360f4d9bceeab8e_mixkit-arcade-retro-game-over-213.wav" type="audio/wav"/>
+                     Your browser does not support the audio element.
+                    </audio>
+                )
+            })}
             </div>
         </div>
     )

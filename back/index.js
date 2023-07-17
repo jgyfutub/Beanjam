@@ -4,6 +4,8 @@ const bodyParser=require('body-parser')
 const cors = require("cors");
 const bcrypt=require("bcrypt")
 const multer=require('multer')
+const fs = require('fs');
+
 
 const app=express()
 app.use(cors())
@@ -14,10 +16,11 @@ app.use(express.urlencoded({extended: true}))
 mongoose.connect('mongodb://localhost:27017/shopDB',{useNewURLParser:true,useUnifiedTopology: true, family: 4}).then(()=>{console.log('connected mongoose')})
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-      cb(null, 'uploads/'); // Destination folder for storing the audio files
+      cb(null, 'C://Users/Acer/OneDrive/Desktop/Avishkar2023/server-side/react-app/public/audios'); // Destination folder for storing the audio files
     },
     filename: function (req, file, cb) {
-      cb(null, file.originalname); // Use the original file name for the stored file
+        console.log(req.body)
+      cb(null,req.body.id+'_'+file.originalname); // Use the original file name for the stored file
     }
   });
   
@@ -31,8 +34,15 @@ const UserSchema=new Schema({
   email: String,
   password: String
 })
+const AudioSchema=new Schema({
+    id:String,
+    Audio:String,
+    likes:Number
+})
 
 const UserDetail=new mongoose.model('Userofaudio', UserSchema);
+
+const AudioDetail=new mongoose.model('Audio',AudioSchema)
 
 app.post('/login',async(req,res)=>{
     console.log("accepted")
@@ -88,7 +98,29 @@ app.get('/signup',async(req,res)=>{
 })
 
 app.post('/uploadaudio',upload.single('audio'),async(req,res)=>{
+    console.log(req.params)
+    const uploadcheck=await AudioDetail.findOne({Audio:req.body.id+'_'+req.file.originalname}).exec()
+    if (uploadcheck==null){
+        const newAudio=await new AudioDetail({
+            id:req.body.id,
+            Audio:req.body.id+'_'+req.file.originalname,
+            likes:0
+        })
+        newAudio.save()
+        res.json({"message":"uploaded"})
+    }
+    else{
+        console.log(uploadcheck)
+        res.json(null)
+    }
 console.log(req.file)
+})
+
+app.get('/uploadaudio',async(req,res)=>{
+    console.log(req.query)
+    const sendaudio=await AudioDetail.find({id:req.query.id})
+    console.log(sendaudio)
+    res.json(sendaudio)
 })
 
 app.listen(8080,()=>{
