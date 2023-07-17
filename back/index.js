@@ -123,6 +123,13 @@ app.get('/uploadaudio',async(req,res)=>{
     res.json(sendaudio)
 })
 
+app.delete('/uploadaudio',async(req,res)=>{
+    console.log(req.query)
+    fs.unlinkSync("C:/Users/Acer/OneDrive/Desktop/Avishkar2023/server-side/react-app/public/audios/"+req.query.audiourl)
+    const response=await AudioDetail.deleteOne({Audio:req.query.audiourl})
+
+})
+
 app.listen(8080,()=>{
     console.log("server runnning on 8080")
 })

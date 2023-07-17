@@ -34,6 +34,9 @@ else if(currentUser_!=null){
         const response =await axios.post('http://localhost:8080/uploadaudio',formdata)
         console.log(response)
     }
+    const handleDelete=async(e)=>{
+        const response=await axios.delete('http://localhost:8080/uploadaudio?audiourl='+e.target.value)
+    }
     useEffect(()=>{
         console.log(id)
         axios.get('http://localhost:8080/uploadaudio?id='+id)
@@ -61,12 +64,16 @@ else if(currentUser_!=null){
             </div>
 
             <div className="Showbox">
-            {audios.forEach((audio)=>{
+            {audios.map((audio,index)=>{
                 return (
+                    <div>
+                    <button value={audio} onClick={handleDelete}>🗑️</button>
                     <audio controls>
-                    <source src="./audios/64b420d77360f4d9bceeab8e_mixkit-arcade-retro-game-over-213.wav" type="audio/wav"/>
+                    <source index={index} src={"./audios/"+audio} type="audio/wav"/>
                      Your browser does not support the audio element.
                     </audio>
+                    <p style={{textAlign:'end'}}>Likes:0</p>
+                    </div>
                 )
             })}
             </div>
