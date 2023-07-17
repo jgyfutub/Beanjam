@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const bodyParser=require('body-parser')
 const cors = require("cors");
 const bcrypt=require("bcrypt")
+const multer=require('multer')
 
 const app=express()
 app.use(cors())
@@ -11,6 +12,17 @@ mongoose.set("strictQuery", false);
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 mongoose.connect('mongodb://localhost:27017/shopDB',{useNewURLParser:true,useUnifiedTopology: true, family: 4}).then(()=>{console.log('connected mongoose')})
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, 'uploads/'); // Destination folder for storing the audio files
+    },
+    filename: function (req, file, cb) {
+      cb(null, file.originalname); // Use the original file name for the stored file
+    }
+  });
+  
+  // Create the multer middleware
+const upload = multer({ storage: storage });
 
 const Schema=mongoose.Schema
 
@@ -73,6 +85,10 @@ app.post('/signup',async(req,res)=>{
 }})
 app.get('/signup',async(req,res)=>{
     res.json({"data":"signup api"})
+})
+
+app.post('/uploadaudio',upload.single('audio'),async(req,res)=>{
+console.log(req.file)
 })
 
 app.listen(8080,()=>{

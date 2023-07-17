@@ -14,6 +14,7 @@ export default function Loginpage(){
             },
         })
         const data=await response.json()
+        localStorage.setItem("currentuser",data)
         console.log(data)
     }
 
