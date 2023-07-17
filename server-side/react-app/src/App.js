@@ -6,6 +6,7 @@ import HomePage from './Pages/Home';
 import Loginpage from './Pages/Login';
 import SignUppage from './Pages/Signup';
 import Dashboard from './Pages/Dashboard';
+import EditAudio from './Pages/EditAudio';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path='/login' element={<Loginpage/>}/>
         <Route path='/signup' element={<SignUppage/>}/>
         <Route path='/dashboard' element={<Dashboard/>}/>
+        <Route path='/edit' element={<EditAudio/>}/>
       </Routes>
     </div>
   </Router>

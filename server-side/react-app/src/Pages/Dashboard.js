@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import './pages.css';
 import Header from "./Header";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate ,useHistory} from "react-router-dom";
 export default function Dashboard(){
     const navigate=useNavigate()
+    const history=useHistory();
     const [text,settext]=useState("")
     const [audio,setaudio]=useState(null)
     const [id,setid]=useState("")
@@ -33,9 +34,14 @@ else if(currentUser_!=null){
         formdata.append("audio",audio)
         const response =await axios.post('http://localhost:8080/uploadaudio',formdata)
         console.log(response)
+        window.location.reload()
     }
     const handleDelete=async(e)=>{
         const response=await axios.delete('http://localhost:8080/uploadaudio?audiourl='+e.target.value)
+        window.location.reload()
+    }
+    const handleEdit=(e)=>{
+        history.push('/edit?audiourl='+e.target.value)
     }
     useEffect(()=>{
         console.log(id)
@@ -67,7 +73,10 @@ else if(currentUser_!=null){
             {audios.map((audio,index)=>{
                 return (
                     <div>
+                    <div style={{display:'flex',justifyContent:'space-between'}}>
                     <button value={audio} onClick={handleDelete}>🗑️</button>
+                    <button value={audio} onClick={handleEdit}>edit</button>
+                    </div>
                     <audio controls>
                     <source index={index} src={"./audios/"+audio} type="audio/wav"/>
                      Your browser does not support the audio element.
