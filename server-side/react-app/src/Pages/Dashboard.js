@@ -2,10 +2,9 @@ import React, { useEffect, useState } from "react";
 import './pages.css';
 import Header from "./Header";
 import axios from "axios";
-import { useNavigate ,useHistory} from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 export default function Dashboard(){
     const navigate=useNavigate()
-    const history=useHistory();
     const [text,settext]=useState("")
     const [audio,setaudio]=useState(null)
     const [id,setid]=useState("")
@@ -41,7 +40,11 @@ else if(currentUser_!=null){
         window.location.reload()
     }
     const handleEdit=(e)=>{
-        history.push('/edit?audiourl='+e.target.value)
+        const audiodata={
+            url:e.target.value
+        }
+        localStorage.setItem("editaudiodata",JSON.stringify(audiodata))
+        navigate('/edit')
     }
     useEffect(()=>{
         console.log(id)
