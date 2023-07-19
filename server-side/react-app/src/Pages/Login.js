@@ -1,6 +1,8 @@
 import React ,{useState,useEffect} from "react";
+import { useNavigate } from "react-router-dom";
 export default function Loginpage(){
     const [user,setuser]=useState({email:"",password:""})
+    const navigate=useNavigate()
     const handleInput=(e)=>{
         setuser({...user,[e.target.name]:e.target.value})
     }
@@ -22,6 +24,7 @@ export default function Loginpage(){
         }
         localStorage.setItem("currentuser",JSON.stringify(UserData))
         console.log(data)
+        navigate('/dashboard')
     }
 
 

@@ -7,6 +7,7 @@ export default function OtherDashboards(){
     const params= useParams()
     const navigate=useNavigate()
     const [id,setid]=useState("")
+    const [follow,setfollow]=useState('Follow')
     const [arr,setarr]=useState([])
     const [userid,setuserid]=useState({email:"",id:""})
     console.log(params.id)
@@ -16,6 +17,11 @@ export default function OtherDashboards(){
         formdata.append("postid",e.target.value)
         console.log(userid)
         const response=await axios.post('http://localhost:8080/likepost?userid='+id+'&postid='+e.target.value)
+
+    }
+    const handleFollow=async(e)=>{
+        const response=await axios.post('http://localhost:8080/follow?id='+id+'&userid='+userid.id)
+        window.location.reload()
     }
     useEffect(()=>{
         const currentUser_ =JSON.parse( localStorage.getItem("currentuser"));
@@ -39,6 +45,11 @@ else if(currentUser_!=null){
         axios.get('http://localhost:8080/aboutaccounts?id='+params.id)
         .then((response)=>{
             console.log(response)
+            if (response.data[0].followers.includes(id)){
+                setfollow("UnFollow")
+            }else{
+                setfollow("Follow")
+            }
             setuserid({email:response.data[0].email,id:response.data[0]._id})
         })
     },[id])
@@ -54,7 +65,7 @@ else if(currentUser_!=null){
                 <h3>User Profile</h3>
                 <h5>Username: {userid.email}</h5>
                 <div>
-                    <button value={userid.id} >Follow</button>
+                    <button value={userid.id} onClick={handleFollow}>{follow}</button>
                     <button>Start a Rap Battle</button>
                 </div>
                 {arr.map((audio,index)=>{
