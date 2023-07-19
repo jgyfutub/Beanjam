@@ -130,6 +130,25 @@ app.delete('/uploadaudio',async(req,res)=>{
 
 })
 
+app.get('/accounts',async(req,res)=>{
+    console.log(req.query.id)
+    const response=await AudioDetail.find({id:req.query.id})
+    console.log(response)
+    res.json(response)
+})
+
+app.get('/aboutaccounts',async(req,res)=>{
+    console.log(req.query.id)
+    const response=await UserDetail.find({_id:req.query.id})
+    console.log(response)
+    res.json(response)
+})
+
+app.post('/likepost',async(req,res)=>{
+    console.log(req.body)
+    
+})
+
 app.listen(8080,()=>{
     console.log("server runnning on 8080")
 })

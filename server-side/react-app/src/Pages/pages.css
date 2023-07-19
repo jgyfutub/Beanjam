@@ -87,4 +87,13 @@
     -webkit-transition: .2s;
     transition: opacity .2s;
   }
+  .Accounts{
+    margin-top:80px;
+    justify-content: center;
+  }
+  .audiobox{
+    display: grid;
+    row-gap: 10px;
+    justify-content: center;
+  }
   
