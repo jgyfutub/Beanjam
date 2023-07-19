@@ -52,7 +52,7 @@ else if(currentUser_!=null){
         .then((response)=>{
             console.log(response.data)
             for(const i of response.data){
-                setaudios([...audios,i.Audio])
+                setaudios([...audios,i])
             }
 
         })
@@ -77,14 +77,15 @@ else if(currentUser_!=null){
                 return (
                     <div>
                     <div style={{display:'flex',justifyContent:'space-between'}}>
-                    <button value={audio} onClick={handleDelete}>🗑️</button>
-                    <button value={audio} onClick={handleEdit}>edit</button>
+                    <button value={audio.Audio} onClick={handleDelete}>🗑️</button>
+                    <button value={audio.Audio} onClick={handleEdit}>edit</button>
                     </div>
+                    <p>{audio.text}</p>
                     <audio controls>
-                    <source index={index} src={"./audios/"+audio} type="audio/wav"/>
+                    <source index={index} src={"./audios/"+audio.Audio} type="audio/wav"/>
                      Your browser does not support the audio element.
                     </audio>
-                    <p style={{textAlign:'end'}}>Likes:0</p>
+                    <p style={{textAlign:'end'}}>Likes:{audio.likes.length}</p>
                     </div>
                 )
             })}

@@ -32,12 +32,15 @@ const Schema=mongoose.Schema
 const UserSchema=new Schema({
     name: String,
   email: String,
-  password: String
+  password: String,
+  followers:[String],
+  following:[String]
 })
 const AudioSchema=new Schema({
     id:String,
     Audio:String,
-    likes:Number
+    text:String,
+    likes:[String]
 })
 
 const UserDetail=new mongoose.model('Userofaudio', UserSchema);
@@ -86,7 +89,10 @@ app.post('/signup',async(req,res)=>{
         const hashedPassword=bcrypt.hashSync(req.body.password,salt)
         const newuser=await new UserDetail({
         email:req.body.email,
-        password:hashedPassword
+        name:req.body.name,
+        password:hashedPassword,
+        followers:[],
+        following:[]
     })
     const doc=await newuser.save()
     res.json({"message":"acoount created!!"})
@@ -104,7 +110,8 @@ app.post('/uploadaudio',upload.single('audio'),async(req,res)=>{
         const newAudio=await new AudioDetail({
             id:req.body.id,
             Audio:req.body.id+'_'+req.file.originalname,
-            likes:0
+            text:req.body.text,
+            likes:[]
         })
         newAudio.save()
         res.json({"message":"uploaded"})
@@ -145,8 +152,16 @@ app.get('/aboutaccounts',async(req,res)=>{
 })
 
 app.post('/likepost',async(req,res)=>{
-    console.log(req.body)
-    
+    console.log(req.query)
+    const response=await AudioDetail.find({_id:req.query.postid})
+    if (response[0].likes.includes(req.query.userid)){
+        const response1=await AudioDetail.findOneAndUpdate({_id:req.query.postid},{$pull:{likes:req.query.userid}})
+        res.json({"message":"unliked"})
+    }
+    else{
+        const response1=await AudioDetail.findOneAndUpdate({_id:req.query.postid},{$push:{likes:req.query.userid}})
+        res.json({"message":"liked"})
+    }
 })
 
 app.listen(8080,()=>{

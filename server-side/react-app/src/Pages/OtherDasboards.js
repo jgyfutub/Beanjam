@@ -14,7 +14,8 @@ export default function OtherDashboards(){
         const formdata=new FormData()
         formdata.append("userid",userid.id)
         formdata.append("postid",e.target.value)
-        const response=await axios.post('http://localhost:8080/likepost',formdata)
+        console.log(userid)
+        const response=await axios.post('http://localhost:8080/likepost?userid='+id+'&postid='+e.target.value)
     }
     useEffect(()=>{
         const currentUser_ =JSON.parse( localStorage.getItem("currentuser"));
@@ -38,7 +39,7 @@ else if(currentUser_!=null){
         axios.get('http://localhost:8080/aboutaccounts?id='+params.id)
         .then((response)=>{
             console.log(response)
-            setuserid({email:response.data[0].email,id:response.data[0].id})
+            setuserid({email:response.data[0].email,id:response.data[0]._id})
         })
     },[id])
 
@@ -63,7 +64,7 @@ else if(currentUser_!=null){
                     <source index={index} src={"./audios/"+audio.Audio} type="audio/wav"/>
                      Your browser does not support the audio element.
                     </audio>
-                    <p>likes: {audio.likes}</p>
+                    <p>likes: {audio.likes.length}</p>
                     <button value={audio._id} onClick={handleLike}>Like</button>
                     </div>
                 )
