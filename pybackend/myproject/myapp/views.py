@@ -34,21 +34,11 @@ class MixAudios(APIView):
         file2=request.POST['audiomix']
         audio1=AudioSegment.from_file('C://Users/Acer/OneDrive/Desktop/Avishkar2023/server-side/react-app/public/audios/'+file1)
         audio2=AudioSegment.from_file('C://Users/Acer/OneDrive/Desktop/Avishkar2023/server-side/react-app/public/mixaudios/'+id+'_'+file2)
-        max_len=max(len(audio1),len(audio2))
-        audio1 = audio1._spawn(audio1.raw_data + b'\x00' * (max_len - len(audio1)))
-        audio2 = audio2._spawn(audio2.raw_data + b'\x00' * (max_len - len(audio2)))
-        audio1 = audio1.set_frame_rate(44100)
-        audio2 = audio2.set_frame_rate(44100)
-        audio1 = audio1.set_channels(2)
-        audio2 = audio2.set_channels(2)
-
-        combine=audio1.overlay(audio2)
-        # samples1 = np.array(audio1.get_array_of_samples())
-        # samples2 = np.array(audio2.get_array_of_samples())
-        # mixed_samples = samples1 + samples2
-        print(combine)
+        samples=audio1.overlay(audio2)
+        samples.export("C:/Users/Acer/OneDrive/Desktop/Avishkar2023/server-side/react-app/public/mixedaudios/"+id+"_"+file1.split(".")[0]+"_"+file2,format='wav')
+        print(samples)
 
         print("kjh",file1,"jhgc",file2,"jhgv",id)
-        return JsonResponse({"message":"post output"})
+        return JsonResponse({"message":"post output","imageurl":"C:/Users/Acer/OneDrive/Desktop/Avishkar2023/server-side/react-app/public/mixedaudios/"+id+"_"+file1.split(".")[0]+"_"+file2})
     def get(self,request):
         return JsonResponse({"message":"get output"})

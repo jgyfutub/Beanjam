@@ -51,13 +51,6 @@ export default function EditAudio(){
         formdata1.append("audiomix",audioname)
         const response1=await axios.post('http://127.0.0.1:8000/audiomix/',formdata1)
     }
-    // const handleMix=async(e)=>{
-    //     const formdata=new FormData()
-    //     formdata.append('audio',params.filename)
-    //     formdata.append('id',id)
-    //     formdata.append("audiomix",audioname)
-    //     const response=await axios.post('http://127.0.0.1:8000/audiomix/',formdata)
-    // }
     useEffect(()=>{
         const currentUser_ =JSON.parse(localStorage.getItem("currentuser"));
         if (currentUser_ == null) {
@@ -107,5 +100,12 @@ export default function EditAudio(){
 
         <input type='file' accept=".wav" onChange={handleAudioChange}/>
         <button onClick={handleAudioMix}>Upload Audios and Mix!!</button>
+
+        <h3>Mixed audio</h3>
+
+        <audio controls>
+        <source src={"./mixedaudios/"+id+'_'+ params.filename.split(".")[0]+'_'+audioname} type="audio/wav"/>
+        </audio>
+
     </div>)
 }
