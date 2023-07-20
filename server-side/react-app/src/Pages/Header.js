@@ -19,6 +19,8 @@ export default function Header(props){
         <div className="PopUp">
             <p style={{color:'white'}}>Welcome, {props.userid}</p>
             <hr/>
+            <button onClick={()=>{navigate('/dashboard')}}>Home Page</button>
+            <hr/>
             <button onClick={()=>{navigate('/Aigenerator')}}>Friends Uploads</button>
             <hr/>
             <button onClick={()=>{navigate('/SuperResolution')}}>Start Rap Battle</button>

@@ -40,11 +40,7 @@ else if(currentUser_!=null){
         window.location.reload()
     }
     const handleEdit=(e)=>{
-        const audiodata={
-            url:e.target.value
-        }
-        localStorage.setItem("editaudiodata",JSON.stringify(audiodata))
-        navigate('/edit')
+        navigate('/edit/'+e.target.value)
     }
     useEffect(()=>{
         console.log(id)

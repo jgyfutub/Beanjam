@@ -19,7 +19,7 @@ function App() {
         <Route path='/login' element={<Loginpage/>}/>
         <Route path='/signup' element={<SignUppage/>}/>
         <Route path='/dashboard' element={<Dashboard/>}/>
-        <Route path='/edit' element={<EditAudio/>}/>
+        <Route path='/edit/:filename' element={<EditAudio/>}/>
         <Route path='/list' element={<List/>}/>
         <Route path='/accounts/:id' element={<OtherDashboards/>}/>
       </Routes>

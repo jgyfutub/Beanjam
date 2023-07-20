@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Header from "./Header";
 import './pages.css'
 import axios from "axios";
 
 export default function EditAudio(){
     const navigate=useNavigate()
+    const params=useParams()
     const [id,setid]=useState("")
     const [url,seturl]=useState("")
     const [myRange1 ,setmyRange1] = useState(1) 
@@ -34,14 +35,13 @@ export default function EditAudio(){
     }
     useEffect(()=>{
         const currentUser_ =JSON.parse(localStorage.getItem("currentuser"));
-        const useraudiourl=JSON.parse(localStorage.getItem('editaudiodata'))
         if (currentUser_ == null) {
             navigate("/");
         }
         else if(currentUser_!=null){
             console.log(currentUser_,)
             setid(currentUser_['id'])
-            seturl(useraudiourl.url)
+            seturl(params.filename)
         }
     },[])
     useEffect(()=>{
