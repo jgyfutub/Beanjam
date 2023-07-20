@@ -23,7 +23,7 @@ export default function Header(props){
             <hr/>
             <button onClick={()=>{navigate('/SuperResolution')}}>Start Rap Battle</button>
             <hr/>
-            <button onClick={()=>{navigate('/savedimages')}}>Saved Neural transfer Paint Images</button>
+            <button onClick={()=>{navigate('/list')}}>Followers and Following</button>
             <hr/>
             <button onClick={()=>{navigate('/savedenhancedimages')}}>Saved Image enhancer Images</button>
             <hr/>
