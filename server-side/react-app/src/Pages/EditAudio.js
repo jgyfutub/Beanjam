@@ -12,8 +12,14 @@ export default function EditAudio(){
     const [myRange1 ,setmyRange1] = useState(1) 
     const [myRange2 ,setmyRange2] = useState(1) 
     const [myRange3 ,setmyRange3] = useState(1)
+    const [audio,setaudio] = useState(null)
     const [bool,setbool]=useState(0)
+    const [audioname,setaudioname]=useState("")
 
+    const handleAudioChange=(e)=>{
+        setaudioname(e.target.files[0].name)
+        setaudio(e.target.files[0])
+    }
     const funcmyRange1=(e)=>{
         setmyRange1(e.target.value)
     }
@@ -33,6 +39,25 @@ export default function EditAudio(){
         formdata.append("tomono",bool)
         const response=await axios.post('http://127.0.0.1:8000/audiostyletransfer/',formdata)
     }
+    const handleAudioMix=async(e)=>{
+        await e.preventDefault();
+        const formdata=new FormData()
+        formdata.append("audio",audio)
+        formdata.append("id",id)
+        const response=await axios.post('http://localhost:8080/uploadmix?id='+id,formdata)
+        const formdata1=new FormData()
+        formdata1.append('audio',params.filename)
+        formdata1.append('id',id)
+        formdata1.append("audiomix",audioname)
+        const response1=await axios.post('http://127.0.0.1:8000/audiomix/',formdata1)
+    }
+    // const handleMix=async(e)=>{
+    //     const formdata=new FormData()
+    //     formdata.append('audio',params.filename)
+    //     formdata.append('id',id)
+    //     formdata.append("audiomix",audioname)
+    //     const response=await axios.post('http://127.0.0.1:8000/audiomix/',formdata)
+    // }
     useEffect(()=>{
         const currentUser_ =JSON.parse(localStorage.getItem("currentuser"));
         if (currentUser_ == null) {
@@ -79,6 +104,8 @@ export default function EditAudio(){
         </audio>
 
         </div>
-        <button>Mix Two Audios</button>
+
+        <input type='file' accept=".wav" onChange={handleAudioChange}/>
+        <button onClick={handleAudioMix}>Upload Audios and Mix!!</button>
     </div>)
 }

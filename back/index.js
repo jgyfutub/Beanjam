@@ -180,3 +180,16 @@ app.post('/follow',async(req,res)=>{
 app.listen(8080,()=>{
     console.log("server runnning on 8080")
 })
+const storage1 = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, 'C://Users/Acer/OneDrive/Desktop/Avishkar2023/server-side/react-app/public/mixaudios');
+    },
+    filename: function (req, file, cb) {
+        console.log(req.body)
+      cb(null,req.query.id+'_'+file.originalname)
+    }
+  });
+const upload1 = multer({ storage: storage1 });
+app.post('/uploadmix',upload1.single('audio'),async(req,res)=>{
+res.json({"message":req.query.id+'_'+req.file.originalname})
+})
