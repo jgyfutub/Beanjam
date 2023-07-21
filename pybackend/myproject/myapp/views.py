@@ -53,3 +53,18 @@ class PostAudio(APIView):
         return JsonResponse({"message":"post output"})
     def get(self,request):
         return JsonResponse({"message":"get output"})
+
+class GraphView(APIView):
+    def post(self,request):
+        file=request.POSt['audio']
+        y, sr = librosa.load(file)
+        loudness = librosa.feature.rmse(y=y)
+        spectral_centroid = librosa.feature.spectral_centroid(y=y, sr=sr)
+        spectral_bandwidth = librosa.feature.spectral_bandwidth(y=y, sr=sr)
+        frames = range(len(loudness[0]))
+        t = librosa.frames_to_time(frames, sr=sr)
+
+        return JsonResponse({"message":"post output"})
+    def get(self,request):
+        return JsonResponse({"message":"get output"})
+
