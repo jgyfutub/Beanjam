@@ -47,6 +47,8 @@ class PostAudio(APIView):
     def post(self,request):
         file1=request.POST['syncedaudio']
         file2=request.POST['audio']
+        audio=AudioSegment.from_file("C:/Users/Acer/OneDrive/Desktop/Avishkar2023/server-side/react-app/public/mixedaudios/"+file1)
+        audio.export("C:/Users/Acer/OneDrive/Desktop/Avishkar2023/server-side/react-app/public/audios/"+file2,format='wav')
         print(file1,file2)
         return JsonResponse({"message":"post output"})
     def get(self,request):

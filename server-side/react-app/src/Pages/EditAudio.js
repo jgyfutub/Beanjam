@@ -25,10 +25,13 @@ export default function EditAudio(){
             console.log(currentUser_,)
             setid(currentUser_['id'])
             seturl(params.filename)
+            if(audioitem!=null){
+                setaudioname(audioitem.audio)
+            }
         }
     },[]) 
     const handleAudioChange=(e)=>{
-        localStorage.setItem(JSON.stringify({"audio":e.target.files[0].name}))
+        localStorage.setItem('audio',JSON.stringify({audio:e.target.files[0].name}))
         setaudioname(e.target.files[0].name)
         setaudio(e.target.files[0])
     }
@@ -42,7 +45,6 @@ export default function EditAudio(){
         setmyRange3(e.target.value)
     }
     const handleSubmit=async(e)=>{
-        e.preventDefault()
         const formdata=new FormData()
         formdata.append("url",url)
         formdata.append("bass",myRange1)
@@ -52,7 +54,7 @@ export default function EditAudio(){
         const response=await axios.post('http://127.0.0.1:8000/audiostyletransfer/',formdata)
     }
     const handleAudioMix=async(e)=>{
-        await e.preventDefault();
+        // e.preventDefault();
         const formdata=new FormData()
         formdata.append("audio",audio)
         formdata.append("id",id)
@@ -62,12 +64,15 @@ export default function EditAudio(){
         formdata1.append('id',id)
         formdata1.append("audiomix",audioname)
         const response1=await axios.post('http://127.0.0.1:8000/audiomix/',formdata1)
+        console.log(response1)
     }
     const handlePost=async(e)=>{
+        e.preventDefault()
         const formdata=new FormData()
         formdata.append("syncedaudio",id+'_'+ params.filename.split(".")[0]+'_'+audioname)
         formdata.append("audio",url)
         const response=await axios.post('http://127.0.0.1:8000/postaudio/',formdata)
+        navigate('/dashboard')
     }
     useEffect(()=>{
         console.log(id)
