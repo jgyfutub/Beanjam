@@ -20,5 +20,6 @@ from myapp import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('audiostyletransfer/',views.AudioEdit.as_view(),name='audiostyletransfer'),
-     path('audiomix/',views.MixAudios.as_view(),name='audiomix')
+     path('audiomix/',views.MixAudios.as_view(),name='audiomix'),
+     path('postaudio/',views.PostAudio.as_view(),name='postaudio')
 ]

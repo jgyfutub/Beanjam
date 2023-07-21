@@ -9,6 +9,7 @@ import Dashboard from './Pages/Dashboard';
 import EditAudio from './Pages/EditAudio';
 import OtherDashboards from './Pages/OtherDasboards';
 import List from './Pages/List';
+import SliderComponent from './Pages/Crop';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path='/edit/:filename' element={<EditAudio/>}/>
         <Route path='/list' element={<List/>}/>
         <Route path='/accounts/:id' element={<OtherDashboards/>}/>
+        <Route path='/crop' element={<SliderComponent/>}/>
       </Routes>
     </div>
   </Router>

@@ -32,7 +32,7 @@ class MixAudios(APIView):
         file1=request.POST['audio']
         id=request.POST['id']
         file2=request.POST['audiomix']
-        audio1=AudioSegment.from_file('C://Users/Acer/OneDrive/Desktop/Avishkar2023/server-side/react-app/public/audios/'+file1)
+        audio1=AudioSegment.from_file('C://Users/Acer/OneDrive/Desktop/Avishkar2023/server-side/react-app/public/editedaudios/'+file1)
         audio2=AudioSegment.from_file('C://Users/Acer/OneDrive/Desktop/Avishkar2023/server-side/react-app/public/mixaudios/'+id+'_'+file2)
         samples=audio1.overlay(audio2)
         samples.export("C:/Users/Acer/OneDrive/Desktop/Avishkar2023/server-side/react-app/public/mixedaudios/"+id+"_"+file1.split(".")[0]+"_"+file2,format='wav')
@@ -40,5 +40,14 @@ class MixAudios(APIView):
 
         print("kjh",file1,"jhgc",file2,"jhgv",id)
         return JsonResponse({"message":"post output","imageurl":"C:/Users/Acer/OneDrive/Desktop/Avishkar2023/server-side/react-app/public/mixedaudios/"+id+"_"+file1.split(".")[0]+"_"+file2})
+    def get(self,request):
+        return JsonResponse({"message":"get output"})
+    
+class PostAudio(APIView):
+    def post(self,request):
+        file1=request.POST['syncedaudio']
+        file2=request.POST['audio']
+        print(file1,file2)
+        return JsonResponse({"message":"post output"})
     def get(self,request):
         return JsonResponse({"message":"get output"})

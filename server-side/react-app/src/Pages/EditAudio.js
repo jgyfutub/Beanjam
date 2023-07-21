@@ -15,8 +15,20 @@ export default function EditAudio(){
     const [audio,setaudio] = useState(null)
     const [bool,setbool]=useState(0)
     const [audioname,setaudioname]=useState("")
-
+    useEffect(()=>{
+        const currentUser_ =JSON.parse(localStorage.getItem("currentuser"));
+        const audioitem=JSON.parse(localStorage.getItem("audio"))
+        if (currentUser_ == null) {
+            navigate("/");
+        }
+        else if(currentUser_!=null){
+            console.log(currentUser_,)
+            setid(currentUser_['id'])
+            seturl(params.filename)
+        }
+    },[]) 
     const handleAudioChange=(e)=>{
+        localStorage.setItem(JSON.stringify({"audio":e.target.files[0].name}))
         setaudioname(e.target.files[0].name)
         setaudio(e.target.files[0])
     }
@@ -51,26 +63,18 @@ export default function EditAudio(){
         formdata1.append("audiomix",audioname)
         const response1=await axios.post('http://127.0.0.1:8000/audiomix/',formdata1)
     }
-    useEffect(()=>{
-        const currentUser_ =JSON.parse(localStorage.getItem("currentuser"));
-        if (currentUser_ == null) {
-            navigate("/");
-        }
-        else if(currentUser_!=null){
-            console.log(currentUser_,)
-            setid(currentUser_['id'])
-            seturl(params.filename)
-        }
-    },[])
+    const handlePost=async(e)=>{
+        const formdata=new FormData()
+        formdata.append("syncedaudio",id+'_'+ params.filename.split(".")[0]+'_'+audioname)
+        formdata.append("audio",url)
+        const response=await axios.post('http://127.0.0.1:8000/postaudio/',formdata)
+    }
     useEffect(()=>{
         console.log(id)
     },[id])
     useEffect(()=>{
         console.log(url)
     },[url])
-    window.unload=()=>{
-        localStorage.removeItem('editaudiodata')
-    }
     return (<div>
     <Header userid="abcd"/>
     <form className="editcontainer" onSubmit={handleSubmit}>
@@ -87,25 +91,29 @@ export default function EditAudio(){
         <h3>Real audio</h3>
 
         <audio controls>
+        {console.log(url)}
         <source src={"./audios/"+url} type="audio/wav"/>
+        <p>If you can read this, your browser does not support the audio element.</p>
         </audio>
 
         <h3>Synthesized audio</h3>
         
         <audio controls>
-        <source src={"./editedaudios/"+url} type="audio/wav"/>
+        <source index={url} src={"./editedaudios/"+url} type="audio/wav"/>
+        <p>If you can read this, your browser does not support the audio element.</p>
         </audio>
 
-        </div>
-
+    
         <input type='file' accept=".wav" onChange={handleAudioChange}/>
         <button onClick={handleAudioMix}>Upload Audios and Mix!!</button>
 
         <h3>Mixed audio</h3>
 
         <audio controls>
+        {console.log(id+'_'+ params.filename.split(".")[0]+'_'+audioname)}
         <source src={"./mixedaudios/"+id+'_'+ params.filename.split(".")[0]+'_'+audioname} type="audio/wav"/>
         </audio>
-
+        <button onClick={handlePost}>Post generated music</button>
+        </div>
     </div>)
 }
