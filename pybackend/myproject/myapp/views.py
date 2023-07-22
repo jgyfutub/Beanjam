@@ -4,6 +4,10 @@ from django.http import HttpResponse
 from django.http import JsonResponse
 from pydub import AudioSegment
 import librosa
+import wave
+import matplotlib.pyplot as plt
+import wave
+import sys
 import numpy as np
 # from pydub.effects import equalize
 import json
@@ -27,6 +31,7 @@ class AudioEdit(APIView):
         return JsonResponse({"message":"post output"})
     def get(self,request):
         return JsonResponse({"message":"get output"})
+
 class MixAudios(APIView):
     def post(self,request):
         file1=request.POST['audio']
@@ -57,6 +62,7 @@ class PostAudio(APIView):
 class GraphView(APIView):
     def post(self,request):
         file=request.POSt['audio']
+
         y, sr = librosa.load(file)
         loudness = librosa.feature.rmse(y=y)
         spectral_centroid = librosa.feature.spectral_centroid(y=y, sr=sr)
@@ -68,3 +74,37 @@ class GraphView(APIView):
     def get(self,request):
         return JsonResponse({"message":"get output"})
 
+class CropViewImage(APIView):
+    def post(self,request):
+        file=request.POST['url']
+        filename=request.POST['filename']
+        audio=AudioSegment.from_file('C:/Users/Acer/OneDrive/Desktop/Avishkar2023/server-side/react-app/public/audios/'+filename)
+        time=len(audio)
+        wav=wave.open(file,'rb')
+        n_samples = wav.getnframes()
+        signal_wave = wav.readframes(n_samples)
+        sample_freq = wav.getframerate()
+        t_audio = n_samples/sample_freq
+        signal_array = np.frombuffer(signal_wave, dtype=np.int16)
+        l_channel = signal_array[0::2]
+        times = np.linspace(0, n_samples/sample_freq, num=n_samples)
+        plt.figure(figsize=(15, 5))
+        plt.plot(times, l_channel)
+        plt.savefig("C:/Users/Acer/OneDrive/Desktop/Avishkar2023/server-side/react-app/public/cropplots/"+filename.split(".")[0]+'.png')
+        print(file)
+        return JsonResponse({"message":"post output","time":time})
+    def get(self,request):
+        return JsonResponse({"message":"get output"})
+
+class CropAudio(APIView):
+    def post(self,request):
+        file=request.POST['file']
+        array=request.POST['array']
+        print(file,int(array.split(",")[1]),int(array.split(",")[0]))
+        audio=AudioSegment.from_file('C:/Users/Acer/OneDrive/Desktop/Avishkar2023/server-side/react-app/public/audios/'+file)
+        crop=audio[int(array.split(",")[0]):int(array.split(",")[1])]
+        print(crop)
+        crop.export("C:/Users/Acer/OneDrive/Desktop/Avishkar2023/server-side/react-app/public/cropaudios/"+file,format='wav')
+        return JsonResponse({"message":"post output"})
+    def get(self,request):
+        return JsonResponse({"message":"get output"})

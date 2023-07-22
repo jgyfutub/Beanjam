@@ -21,5 +21,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('audiostyletransfer/',views.AudioEdit.as_view(),name='audiostyletransfer'),
      path('audiomix/',views.MixAudios.as_view(),name='audiomix'),
-     path('postaudio/',views.PostAudio.as_view(),name='postaudio')
+     path('postaudio/',views.PostAudio.as_view(),name='postaudio'),
+     path('cropaudioimage/',views.CropViewImage.as_view(),name='cropaudio'),
+     path('cropaudio/',views.CropAudio.as_view(),name='cropaudio1')
 ]
