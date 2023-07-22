@@ -23,5 +23,6 @@ urlpatterns = [
      path('audiomix/',views.MixAudios.as_view(),name='audiomix'),
      path('postaudio/',views.PostAudio.as_view(),name='postaudio'),
      path('cropaudioimage/',views.CropViewImage.as_view(),name='cropaudio'),
-     path('cropaudio/',views.CropAudio.as_view(),name='cropaudio1')
+     path('cropaudio/',views.CropAudio.as_view(),name='cropaudio1'),
+     path('postcropaudio/',views.PostCropAudio.as_view(),name='postcropaudio')
 ]

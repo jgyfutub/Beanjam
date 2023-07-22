@@ -108,3 +108,13 @@ class CropAudio(APIView):
         return JsonResponse({"message":"post output"})
     def get(self,request):
         return JsonResponse({"message":"get output"})
+
+class PostCropAudio(APIView):
+    def post(self,request):
+        file=request.POST['file']
+        audio=AudioSegment.from_file("C:/Users/Acer/OneDrive/Desktop/Avishkar2023/server-side/react-app/public/cropaudios/"+file)
+        audio.export("C:/Users/Acer/OneDrive/Desktop/Avishkar2023/server-side/react-app/public/audios/"+file,format='wav')
+        print(file)
+        return JsonResponse({"message":"post output"})
+    def get(self,request):
+        return JsonResponse({"message":"get output"})

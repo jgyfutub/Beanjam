@@ -11,6 +11,10 @@ export default function SliderComponent(){
     const [url,seturl]=useState("")
     const [arr,setarr]=useState([])
     const [num,setnum]=useState(0)
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.ready.then(registration => {
+          registration.unregister();
+        })}
     const handleView=async(e)=>{
         e.preventDefault()
         const formdata=new FormData()
@@ -25,7 +29,14 @@ export default function SliderComponent(){
         formdata.append("array",arr)
         formdata.append("file",url)
         const response=await axios.post("http://127.0.0.1:8000/cropaudio/",formdata)
-
+        window.location.reload()
+    }
+    const handlePost=async(e)=>{
+        e.preventDefault()
+        const formdata=new FormData()
+        formdata.append("file",url)
+        const response=await axios.post("http://127.0.0.1:8000/postcropaudio/",formdata)
+        navigate('/dashboard')
     }
     useEffect(()=>{
         const currentUser_ =JSON.parse(localStorage.getItem("currentuser"));
@@ -78,7 +89,7 @@ export default function SliderComponent(){
 Your browser does not support the audio element.
 </audio>)}
 <button onClick={handleCrop}>Crop and Check</button>
-<button>Confirm Crop</button>
+<button onClick={handlePost}>Confirm Crop</button>
 </div>
 </div>
     
