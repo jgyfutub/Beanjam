@@ -23,7 +23,7 @@ function App() {
         <Route path='/edit/:filename' element={<EditAudio/>}/>
         <Route path='/list' element={<List/>}/>
         <Route path='/accounts/:id' element={<OtherDashboards/>}/>
-        <Route path='/crop' element={<SliderComponent/>}/>
+        <Route path='/crop/:filename' element={<SliderComponent/>}/>
       </Routes>
     </div>
   </Router>

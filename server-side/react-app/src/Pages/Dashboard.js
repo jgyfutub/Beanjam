@@ -42,6 +42,9 @@ else if(currentUser_!=null){
     const handleEdit=(e)=>{
         navigate('/edit/'+e.target.value)
     }
+    const handleCrop=(e)=>{
+        navigate('/crop/'+e.target.value)
+    }
     useEffect(()=>{
         console.log(id)
         axios.get('http://localhost:8080/uploadaudio?id='+id)
@@ -74,6 +77,7 @@ else if(currentUser_!=null){
                     <div>
                     <div style={{display:'flex',justifyContent:'space-between'}}>
                     <button value={audio.Audio} onClick={handleDelete}>🗑️</button>
+                    <button value={audio.Audio} onClick={handleCrop}>✂️</button>
                     <button value={audio.Audio} onClick={handleEdit}>edit</button>
                     </div>
                     <p>{audio.text}</p>

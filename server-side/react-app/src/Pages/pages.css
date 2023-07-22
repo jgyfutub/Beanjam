@@ -99,5 +99,15 @@
   .List{
     margin-top: 80px;
   }
-
-  
+.horizontal-slider{
+    width: 100%;
+    max-width: 500px;
+    height: 50px;
+    border: 1px solid grey;
+    margin-top: 100px;
+    background-color: aquamarine;
+}
+.horizontal-slider .example-thumb{
+    height: 50px;
+    background-color: black;
+}
