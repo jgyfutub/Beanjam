@@ -9,6 +9,7 @@ import matplotlib.pyplot as plt
 import wave
 import sys
 import numpy as np
+from datetime import datetime
 # from pydub.effects import equalize
 import json
 import os
@@ -26,9 +27,10 @@ class AudioEdit(APIView):
         bassed_audio=audio.low_pass_filter(int(bass))
         trebled_audio=bassed_audio.high_pass_filter(int(treble))
         louder_audio=trebled_audio+int(volume)
-        louder_audio.export('C:/Users/Acer/OneDrive/Desktop/Avishkar2023/server-side/react-app/public/editedaudios/'+url,format='wav')
+        t=datetime.now()
+        louder_audio.export('C:/Users/Acer/OneDrive/Desktop/Avishkar2023/server-side/react-app/public/editedaudios/'+str(t)+'@'+url,format='wav')
         print(trebled_audio,bass,treble,volume)
-        return JsonResponse({"message":"post output"})
+        return JsonResponse({"message":"post output","time":t})
     def get(self,request):
         return JsonResponse({"message":"get output"})
 
@@ -104,8 +106,9 @@ class CropAudio(APIView):
         audio=AudioSegment.from_file('C:/Users/Acer/OneDrive/Desktop/Avishkar2023/server-side/react-app/public/audios/'+file)
         crop=audio[int(array.split(",")[0]):int(array.split(",")[1])]
         print(crop)
-        crop.export("C:/Users/Acer/OneDrive/Desktop/Avishkar2023/server-side/react-app/public/cropaudios/"+file,format='wav')
-        return JsonResponse({"message":"post output"})
+        t=datetime.now().timestamp()
+        crop.export("C:/Users/Acer/OneDrive/Desktop/Avishkar2023/server-side/react-app/public/cropaudios/"+str(t)+"@"+file,format='wav')
+        return JsonResponse({"message":"post output","time":t})
     def get(self,request):
         return JsonResponse({"message":"get output"})
 

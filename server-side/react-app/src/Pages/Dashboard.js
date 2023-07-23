@@ -81,7 +81,7 @@ else if(currentUser_!=null){
                     <button value={audio.Audio} onClick={handleEdit}>edit</button>
                     </div>
                     <p>{audio.text}</p>
-                    <audio controls>
+                    <audio controls autoplay muted>
                     <source index={index} src={"./audios/"+audio.Audio} type="audio/wav"/>
                      Your browser does not support the audio element.
                     </audio>

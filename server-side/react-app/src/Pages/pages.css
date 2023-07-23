@@ -11,8 +11,9 @@
 .buttonname{
     background-color: rgb(7, 178, 7);
     margin-left: 30px;
-    height: 50px;
+    height: 40px;
     width: 200px;
+    padding-inline: 10px;
     margin-top: 15px;
     border-width: 0px;
     border-radius: 5px;
@@ -90,6 +91,9 @@
 }
 .Dashboard .Uploadbox form button:hover{
     background-color:rgb(8, 139, 8) ;
+}
+audio{
+    z-index: 0;
 }
   /* Customize the play button */
   audio::-webkit-media-controls-play-button {

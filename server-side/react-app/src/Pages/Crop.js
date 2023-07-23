@@ -11,6 +11,7 @@ export default function SliderComponent(){
     const [url,seturl]=useState("")
     const [arr,setarr]=useState([])
     const [num,setnum]=useState(0)
+    const [newurl,setnewurl]=useState("")
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.ready.then(registration => {
           registration.unregister();
@@ -29,6 +30,7 @@ export default function SliderComponent(){
         formdata.append("array",arr)
         formdata.append("file",url)
         const response=await axios.post("http://127.0.0.1:8000/cropaudio/",formdata)
+        localStorage.setItem('newurl',JSON.stringify({newurl:response.data.time}))
         window.location.reload()
     }
     const handlePost=async(e)=>{
@@ -41,6 +43,7 @@ export default function SliderComponent(){
     useEffect(()=>{
         const currentUser_ =JSON.parse(localStorage.getItem("currentuser"));
         const audioitem=JSON.parse(localStorage.getItem("time"))
+        const newurl=JSON.parse(localStorage.getItem("newurl"))
         if (currentUser_ == null) {
             navigate("/");
         }
@@ -51,6 +54,9 @@ export default function SliderComponent(){
             if(audioitem!=null){
                 setnum(audioitem.audio)
             }
+            if(newurl!=null){
+                setnewurl(newurl.newurl)
+            }
         }
     },[])
     useEffect(()=>{
@@ -60,12 +66,15 @@ export default function SliderComponent(){
         console.log(url)
     },[url])
     useEffect(()=>{
+        console.log(newurl)
+    },[newurl])
+    useEffect(()=>{
         console.log(arr)
     },[arr])
     return(
     <div>
     <Header userid="abcd"/>
-    <button onClick={handleView} style={{marginTop:'80px'}}>Show sound Graph</button>
+    <button onClick={handleView} style={{marginTop:'80px'}} className="buttonname">Show new sound Graph</button>
     <div style={{display:'grid',justifyContent:'center'}}>
          <ReactSlider
     className="horizontal-slider"
@@ -83,13 +92,13 @@ export default function SliderComponent(){
 <p>End : {arr[1]}</p>
 </div>
 <div style={{display:'grid',justifyContent:'center',rowGap:'30px'}}>
-{url && (
+{newurl && url && (
 <audio controls style={{marginTop:'60px'}}>
-<source src={`/cropaudios/${url}`} type="audio/wav"/>
+<source src={`/cropaudios/${newurl}@${url}`} type="audio/wav"/>
 Your browser does not support the audio element.
 </audio>)}
-<button onClick={handleCrop}>Crop and Check</button>
-<button onClick={handlePost}>Confirm Crop</button>
+<button onClick={handleCrop} className="buttonname">Crop and Check</button>
+<button onClick={handlePost} className="buttonname">Confirm Crop</button>
 </div>
 </div>
     

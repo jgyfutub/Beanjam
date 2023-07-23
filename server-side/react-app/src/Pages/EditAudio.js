@@ -90,35 +90,35 @@ export default function EditAudio(){
         <input type="range" min="1" max="100" className="myRange2" value={myRange2} onChange={funcmyRange2}/>
         <h3>Volume: {myRange3}</h3>
         <input type="range" min="1" max="100" className="myRange3" value={myRange3} onChange={funcmyRange3}/>
-        <button type="submit">Submit</button>
+        <button type="submit" className="buttonname">Submit</button>
         </form>
-        <div style={{display:'grid',justifyContent:'center',marginTop:'20px'}}>
+        <div style={{display:'grid',justifyContent:'center',marginTop:'20px', rowGap:'30px'}}>
         <h3>Real audio</h3>
 
-        <audio controls>
+        {url && (<audio controls>
         {console.log(url)}
-        <source src={"./audios/"+url} type="audio/wav"/>
+        <source src={"/audios/"+url} type="audio/wav"/>
         <p>If you can read this, your browser does not support the audio element.</p>
-        </audio>
+        </audio>)}
 
         <h3>Synthesized audio</h3>
         
-        <audio controls>
-        <source index={url} src={"./editedaudios/"+url} type="audio/wav"/>
+        {url && (<audio controls>
+        <source index={url} src={"/editedaudios/"+url} type="audio/wav"/>
         <p>If you can read this, your browser does not support the audio element.</p>
-        </audio>
+        </audio>)}
 
     
         <input type='file' accept=".wav" onChange={handleAudioChange}/>
-        <button onClick={handleAudioMix}>Upload Audios and Mix!!</button>
+        <button onClick={handleAudioMix} className="buttonname">Upload Audios and Mix!!</button>
 
         <h3>Mixed audio</h3>
 
-        <audio controls>
+        {audioname && (<audio controls>
         {console.log(id+'_'+ params.filename.split(".")[0]+'_'+audioname)}
-        <source src={"./mixedaudios/"+id+'_'+ params.filename.split(".")[0]+'_'+audioname} type="audio/wav"/>
-        </audio>
-        <button onClick={handlePost}>Post generated music</button>
+        <source src={"/mixedaudios/"+id+'_'+ params.filename.split(".")[0]+'_'+audioname} type="audio/wav"/>
+        </audio>)}
+        <button onClick={handlePost} className="buttonname">Post generated music</button>
         </div>
     </div>)
 }
