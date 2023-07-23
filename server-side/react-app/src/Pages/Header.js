@@ -7,6 +7,14 @@ export default function Header(props){
     const handleClick=()=>{
         funcbool(prevBool => !prevBool)
     }
+    const handlelogout=async(e)=>{
+        // console.log(localStorage.getItem('Currentuser'))
+        await localStorage.removeItem('currentuser')
+        await localStorage.removeItem('time')
+        await localStorage.removeItem('newurl')
+        await localStorage.removeItem('audio')
+        navigate('/')
+    }
     useEffect(() => {
         console.log(bool); 
       }, [bool]);
@@ -29,7 +37,7 @@ export default function Header(props){
             <hr/>
             <button onClick={()=>{navigate('/savedenhancedimages')}}>Saved Image enhancer Images</button>
             <hr/>
-            <button  >Log Out</button>
+            <button onClick={handlelogout}>Log Out</button>
             <hr/>
             </div>)
             :
