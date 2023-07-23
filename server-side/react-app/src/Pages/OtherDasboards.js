@@ -9,7 +9,7 @@ export default function OtherDashboards(){
     const [id,setid]=useState("")
     const [follow,setfollow]=useState('Follow')
     const [arr,setarr]=useState([])
-    const [userid,setuserid]=useState({email:"",id:""})
+    const [userid,setuserid]=useState({email:"",id:"",name:"",follower:0,following:0})
     console.log(params.id)
     const handleLike=async(e)=>{
         const formdata=new FormData()
@@ -50,7 +50,8 @@ else if(currentUser_!=null){
             }else{
                 setfollow("Follow")
             }
-            setuserid({email:response.data[0].email,id:response.data[0]._id})
+            console.log(response.data[0].followers.length)
+            setuserid({email:response.data[0].email,id:response.data[0]._id,name:response.data[0].name,follower:(response.data[0].followers.length),following:(response.data[0].following.length)})
         })
     },[id])
 
@@ -62,11 +63,14 @@ else if(currentUser_!=null){
         <div>
             <Header userid="wef"/>
             <div className="Accounts">
-                <h3>User Profile</h3>
-                <h5>Username: {userid.email}</h5>
+                <h1>User Profile</h1>
+                <h3>Name: {userid.name}</h3>
+                <h3>Email: {userid.email}</h3>
+                <h3>Followers: {userid.follower}</h3>
+                <h3>Following: {userid.following}</h3>
                 <div>
-                    <button value={userid.id} onClick={handleFollow}>{follow}</button>
-                    <button>Start a Rap Battle</button>
+                    <button value={userid.id} onClick={handleFollow} className="buttonname">{follow}</button>
+                    <button  className="buttonname">Start a Rap Battle</button>
                 </div>
                 {arr.map((audio,index)=>{
                 return (

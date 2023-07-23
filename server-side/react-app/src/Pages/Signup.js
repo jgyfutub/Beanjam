@@ -31,8 +31,8 @@ export default function SignUppage(){
     }
     return <div>
         <h1>SignUp Page</h1>
-        <div>
-        <form onSubmit={handleSubmit}>
+        <div className="Login">
+        <form onSubmit={handleSubmit} className="LoginContainer">
             <input type="email" name="email" placeholder="Write Email" onChange={handleInput} required/>
             <input type="password" name="password" placeholder="Write password" onChange={handleInput} required/>
             <input type="cpassword" name="cpassword" placeholder="ReWrite Password" onChange={handleInput} required/>

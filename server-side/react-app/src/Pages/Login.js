@@ -1,4 +1,5 @@
 import React ,{useState,useEffect} from "react";
+import './pages.css';
 import { useNavigate } from "react-router-dom";
 export default function Loginpage(){
     const [user,setuser]=useState({email:"",password:""})
@@ -26,14 +27,10 @@ export default function Loginpage(){
         console.log(data)
         navigate('/dashboard')
     }
-
-
-
-
     return <div>
         <h1>Login page</h1>
-        <div>
-        <form onSubmit={handleSubmit}>
+        <div className="Login">
+        <form onSubmit={handleSubmit} className="LoginContainer">
             <input type="email" name="email" placeholder="Write Email" onChange={handleInput}/>
             <input type="password" name="password" placeholder="Write password" onChange={handleInput}/>
             <button type="submit">Login</button>
