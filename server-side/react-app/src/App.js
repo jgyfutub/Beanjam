@@ -10,6 +10,8 @@ import EditAudio from './Pages/EditAudio';
 import OtherDashboards from './Pages/OtherDasboards';
 import List from './Pages/List';
 import SliderComponent from './Pages/Crop';
+import MusicBattle from './Pages/MusicBattle';
+import Battle from './Pages/Battle';
 
 function App() {
   return (
@@ -24,6 +26,8 @@ function App() {
         <Route path='/list' element={<List/>}/>
         <Route path='/accounts/:id' element={<OtherDashboards/>}/>
         <Route path='/crop/:filename' element={<SliderComponent/>}/>
+        <Route path='/musicbattle' element={<MusicBattle/>}/>
+        <Route path='/battle/:id' element={<Battle/>}/>
       </Routes>
     </div>
   </Router>

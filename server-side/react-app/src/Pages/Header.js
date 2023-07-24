@@ -31,11 +31,11 @@ export default function Header(props){
             <hr/>
             <button onClick={()=>{navigate('/Aigenerator')}}>Friends Uploads</button>
             <hr/>
-            <button onClick={()=>{navigate('/SuperResolution')}}>Start Rap Battle</button>
+            <button onClick={()=>{navigate('/musicbattle')}}>Start Music Battle</button>
             <hr/>
             <button onClick={()=>{navigate('/list')}}>Followers and Following</button>
             <hr/>
-            <button onClick={()=>{navigate('/savedenhancedimages')}}>Saved Image enhancer Images</button>
+            <button onClick={()=>{navigate('/savedenhancedimages')}}></button>
             <hr/>
             <button onClick={handlelogout}>Log Out</button>
             <hr/>

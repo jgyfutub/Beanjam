@@ -42,10 +42,15 @@ const AudioSchema=new Schema({
     text:String,
     likes:[String]
 })
-
+ 
+const ReadyForBattleSchema=new Schema({
+    readyforbattle:String
+})
 const UserDetail=new mongoose.model('Userofaudio', UserSchema);
 
 const AudioDetail=new mongoose.model('Audio',AudioSchema)
+
+const ReadyForBattle=new mongoose.model('ReadyForBattle',ReadyForBattleSchema)
 
 app.post('/login',async(req,res)=>{
     console.log("accepted")
@@ -177,9 +182,6 @@ app.post('/follow',async(req,res)=>{
         res.json({"message":"followed"})
     }
 })
-app.listen(8080,()=>{
-    console.log("server runnning on 8080")
-})
 const storage1 = multer.diskStorage({
     destination: function (req, file, cb) {
       cb(null, 'C://Users/Acer/OneDrive/Desktop/Avishkar2023/server-side/react-app/public/mixaudios');
@@ -192,4 +194,32 @@ const storage1 = multer.diskStorage({
 const upload1 = multer({ storage: storage1 });
 app.post('/uploadmix',upload1.single('audio'),async(req,res)=>{
 res.json({"message":req.query.id+'_'+req.file.originalname})
+})
+
+app.post("/readyforbattle",async(req,res)=>{
+    const response= await ReadyForBattle.find({})
+    console.log(response)
+    let arr=[]
+    for(const i of response){
+        arr.push(i.readyforbattle)
+    }
+    if(!arr.includes(req.query.id)){
+    const newwarrior=await new ReadyForBattle({
+        readyforbattle:req.query.id
+    })
+    newwarrior.save()}
+    res.json(response)
+})
+app.get('/warriors',async(req,res)=>{
+    const response= await ReadyForBattle.find({})
+    console.log(response)
+    let arr=[]
+    for(const i of response){
+        if(i.readyforbattle!=req.query.id){
+        arr.push(i.readyforbattle)
+    }}
+    res.json({"warriors":arr})
+})
+app.listen(8080,()=>{
+    console.log("server runnning on 8080")
 })
