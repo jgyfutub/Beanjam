@@ -5,15 +5,32 @@ const cors = require("cors");
 const bcrypt=require("bcrypt")
 const multer=require('multer')
 const fs = require('fs');
-
+const http=require('http')
+const {Server}=require('socket.io')
 
 const app=express()
+const server=http.createServer(app)
 app.use(cors())
 app.use(bodyParser.urlencoded({extended:true}))
 mongoose.set("strictQuery", false);
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 mongoose.connect('mongodb://localhost:27017/shopDB',{useNewURLParser:true,useUnifiedTopology: true, family: 4}).then(()=>{console.log('connected mongoose')})
+
+const io=new Server(server,{
+    cors:{
+        origin:'http://localhost:3000',
+        methods:['GET','POST']
+    }
+})
+io.on("connection",(socket)=>{
+    console.log("connectec socket")
+
+    socket.on("send_message",(data)=>{
+        console.log(data)
+        socket.broadcast.emit("receive_message",data)
+    })
+})
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
       cb(null, 'C://Users/Acer/OneDrive/Desktop/Avishkar2023/server-side/react-app/public/audios'); // Destination folder for storing the audio files
@@ -46,11 +63,21 @@ const AudioSchema=new Schema({
 const ReadyForBattleSchema=new Schema({
     readyforbattle:String
 })
+const BattleScehma=new Schema({
+    user:String,
+    userfile:String,
+    userLikes:[String],
+    opponent:String,
+    opponentfile:String,
+    opponentLikes:[String]
+})
 const UserDetail=new mongoose.model('Userofaudio', UserSchema);
 
 const AudioDetail=new mongoose.model('Audio',AudioSchema)
 
 const ReadyForBattle=new mongoose.model('ReadyForBattle',ReadyForBattleSchema)
+
+const Battle=new mongoose.model('Battle',BattleScehma)
 
 app.post('/login',async(req,res)=>{
     console.log("accepted")
