@@ -13,7 +13,7 @@ export default function MusicBattle(){
     const [audios,setaudios]=useState([])
     const [isOpen, setIsOpen] = useState(false);
     const [selectedFile, setSelectedFile] = useState(null);
-    const socket=io.connect('http://localhost:3000')
+    const socket=io.connect('http://localhost:8080')
     const handleBattle=async(e)=>{
         const response=await axios.post('http://localhost:8080/readyforbattle?id='+id)
         const response1=await axios.get('http://localhost:8080/warriors?id='+id)
@@ -44,7 +44,7 @@ else if(currentUser_!=null){
     },[])
     useEffect(()=>{
         socket.on("receive_message",(data)=>{
-            alert(data.message)
+            console.log(data.message)
         })
     },[socket])
     return (
