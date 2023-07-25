@@ -31,6 +31,7 @@ else if(currentUser_!=null){
         formdata.append("id",id)
         formdata.append("text",text)
         formdata.append("audio",audio)
+        formdata.append("time",new Date().getTime())
         const response =await axios.post('http://localhost:8080/uploadaudio',formdata)
         console.log(response)
         window.location.reload()

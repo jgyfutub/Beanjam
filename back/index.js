@@ -14,7 +14,11 @@ mongoose.set("strictQuery", false);
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 const server=http.createServer(app)
-const io=require('socket.io')(server)
+const io=require('socket.io')(server, {
+    cors: {
+      origin: "*",
+    },
+  });
 mongoose.connect('mongodb://localhost:27017/shopDB',{useNewURLParser:true,useUnifiedTopology: true, family: 4}).then(()=>{console.log('connected mongoose')})
 
 // const io=new Server(server,{
@@ -23,6 +27,9 @@ mongoose.connect('mongodb://localhost:27017/shopDB',{useNewURLParser:true,useUni
 //         methods:['GET','POST']
 //     }
 // })
+app.listen(8080,()=>{
+    console.log("server runnning on 8080")
+})
 io.on("connection",(socket)=>{
     console.log("connectec socket")
 
@@ -36,7 +43,7 @@ const storage = multer.diskStorage({
       cb(null, 'C://Users/Acer/OneDrive/Desktop/Avishkar2023/server-side/react-app/public/audios'); // Destination folder for storing the audio files
     },
     filename: function (req, file, cb) {
-        console.log(req.body)
+        console.log(req.body.time)
       cb(null,req.body.id+'_'+file.originalname); // Use the original file name for the stored file
     }
   });
@@ -246,7 +253,4 @@ app.get('/warriors',async(req,res)=>{
         arr.push(i.readyforbattle)
     }}
     res.json({"warriors":arr})
-})
-app.listen(8080,()=>{
-    console.log("server runnning on 8080")
 })

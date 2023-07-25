@@ -13,7 +13,7 @@ export default function MusicBattle(){
     const [audios,setaudios]=useState([])
     const [isOpen, setIsOpen] = useState(false);
     const [selectedFile, setSelectedFile] = useState(null);
-    const socket=io.connect('http://localhost:8080')
+    const socket=io.connect('http://localhost:8080', {reconnect: true})
     const handleBattle=async(e)=>{
         const response=await axios.post('http://localhost:8080/readyforbattle?id='+id)
         const response1=await axios.get('http://localhost:8080/warriors?id='+id)
