@@ -1,7 +1,9 @@
 import React ,{useState,useEffect}from "react";
 import axios from 'axios'
+import { useNavigate } from "react-router-dom";
 export default function SignUppage(){
     const [user,setuser]=useState({email:"",password:"",cpassword:"",name:""})
+    const navigate=useNavigate()
     const handleInput=(e)=>{
         const name=e.target.name
         const value=e.target.value
@@ -26,7 +28,8 @@ export default function SignUppage(){
                 v:data.v
             }
             localStorage.setItem("CurrentUser",UserData)
-            
+            if(data){
+            navigate("/login")}
         }
     }
     return <div>
@@ -35,7 +38,7 @@ export default function SignUppage(){
         <form onSubmit={handleSubmit} className="LoginContainer">
             <input type="email" name="email" placeholder="Write Email" onChange={handleInput} required/>
             <input type="password" name="password" placeholder="Write password" onChange={handleInput} required/>
-            <input type="cpassword" name="cpassword" placeholder="ReWrite Password" onChange={handleInput} required/>
+            <input type="password" name="cpassword" placeholder="ReWrite Password" onChange={handleInput} required/>
             <input type="text" name="name" placeholder="Write your name" onChange={handleInput} required/>
             <button type="submit">Register</button>
             </form>

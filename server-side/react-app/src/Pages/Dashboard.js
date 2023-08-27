@@ -52,7 +52,7 @@ else if(currentUser_!=null){
         .then((response)=>{
             console.log(response.data)
             for(const i of response.data){
-                setaudios([...audios,i])
+                setaudios(prevaudio=>[...prevaudio,i])
             }
 
         })
@@ -73,7 +73,7 @@ else if(currentUser_!=null){
             </div>
 
             <div className="Showbox">
-            {audios.map((audio,index)=>{
+            {audios.reverse().map((audio,index)=>{
                 return (
                     <div>
                     <div style={{display:'flex',justifyContent:'space-between'}}>

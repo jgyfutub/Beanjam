@@ -39,7 +39,7 @@ else if(currentUser_!=null){
         .then((response)=>{
             console.log(response.data)
             for(const i of response.data){
-                setarr([...arr,i])
+                setarr(prevarr=>[...prevarr,i])
             }
         })
         axios.get('http://localhost:8080/aboutaccounts?id='+params.id)
@@ -72,6 +72,7 @@ else if(currentUser_!=null){
                     <button value={userid.id} onClick={handleFollow} className="buttonname">{follow}</button>
                     <button  className="buttonname">Start a Rap Battle</button>
                 </div>
+                <div style={{display:'grid',justifyContent:'center',rowGap:20}}>
                 {arr.map((audio,index)=>{
                 return (
                     <div className="audiobox">
@@ -84,6 +85,7 @@ else if(currentUser_!=null){
                     </div>
                 )
             })}
+            </div>
             </div>
         </div>
     )

@@ -7,6 +7,8 @@ export default function List(){
     const [id,setid]=useState("")
     const [following,setfollowing]=useState([])
     const [followers,setfollowers]=useState([])
+    const [followersname,setfollowersname]=useState([])
+    const [followingname,setfollowingname]=useState([])
     const handleView=(e)=>{
         navigate('/accounts/'+e.target.value)
     }
@@ -38,13 +40,13 @@ else if(currentUser_!=null){
                     <h3>Following</h3>
                     {following.map((audio,index)=>{
                         return(
-                            <button value={audio}>View Profile</button>
+                            <button value={audio} onClick={handleView}>View Profile</button>
                         )
                     }
                     )}
                 </div>
                 <div className="Followers">
-                    <h3>Following</h3>
+                    <h3>Followers</h3>
                     {followers.map((audio,index)=>{
                         return(
                             <button value={audio} onClick={handleView}>View Profile</button>

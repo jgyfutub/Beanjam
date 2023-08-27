@@ -41,6 +41,13 @@
 .Header button:hover{
     background-color:rgb(8, 139, 8) ;
 }
+.Header input{
+    margin-top:10px;
+    height:40px;
+    width:70%;
+    margin-inline:30px;
+    border-radius:10px;
+}
 .PopUp{
     position: fixed;
     height: 100%;
@@ -113,7 +120,10 @@ audio{
 .Showbox{
     margin-top:30px;
     display: grid;
-    justify-content: center;
+    justify-content: center;   
+}
+.Showbox div{
+    margin-block:20px;
 }
 .Showbox div{
     display: grid;
@@ -155,6 +165,9 @@ audio{
   .audiobox{
     display: grid;
     row-gap: 10px;
+    background-color: beige;
+    padding-inline:50px;
+    padding-block:20px;
     justify-content: center;
   }
   .List{

@@ -21,6 +21,7 @@ export default function Header(props){
     return <div>
     <div className="Header">
             <button onClick={handleClick}>≡</button>
+            <input type="search" className="search" placeholder="Search any User..."/>
             <p>Beanjam</p>
         </div>
         {bool ? (
@@ -34,8 +35,6 @@ export default function Header(props){
             <button onClick={()=>{navigate('/musicbattle')}}>Start Music Battle</button>
             <hr/>
             <button onClick={()=>{navigate('/list')}}>Followers and Following</button>
-            <hr/>
-            <button onClick={()=>{navigate('/savedenhancedimages')}}></button>
             <hr/>
             <button onClick={handlelogout}>Log Out</button>
             <hr/>
