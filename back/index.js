@@ -232,7 +232,17 @@ res.json({"message":req.query.id+'_'+req.file.originalname})
 
 app.get('/getposts',async(req,res)=>{
     const response=await UserDetail.find({_id:req.query.id})
-    console.log(response)
+    posts=[]
+    for (const i of response[0].following){
+        const eachresponse=await AudioDetail.find({id:i})
+        console.log("sads"+eachresponse)
+        posts.push(eachresponse)
+    }
+    res.json({"posts":posts})
+})
+app.get('/search',async(req,res)=>{
+    const response=await UserDetail.find({})
+    res.json(response)
 })
 app.post("/readyforbattle",async(req,res)=>{
     const response= await ReadyForBattle.find({})

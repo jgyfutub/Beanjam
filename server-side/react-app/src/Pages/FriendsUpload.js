@@ -23,10 +23,27 @@ else if(currentUser_!=null){
                 setfollowing(prevfollowing=>[...prevfollowing,i])
             }
         })
-    
+    axios.get('http://localhost:8080/getposts?id='+currentUser_.id)
+    .then((response)=>{
+        console.log(response)
+        for (const i of response.data.posts){
+            setfollowingcontent(prevposts=>[...prevposts,i])
+        }
+    })
 }
     },[])
     return (
+        <div>
         <Header/>
+        <div className="audiobox">
+            <audio controls>
+            <source type="audio/wav"/>
+                Your browser does not support the audio element.
+            </audio>
+            <p>likes: 0</p>
+            <button >Like</button>
+            </div>
+        </div>
+
     )
 }

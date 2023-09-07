@@ -36,6 +36,8 @@ export default function Header(props){
             <hr/>
             <button onClick={()=>{navigate('/list')}}>Followers and Following</button>
             <hr/>
+            <button onClick={()=>{navigate('/friendsposts')}}>Posts of Your Friends</button>
+            <hr/>
             <button onClick={handlelogout}>Log Out</button>
             <hr/>
             </div>)

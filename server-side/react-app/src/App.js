@@ -11,6 +11,7 @@ import OtherDashboards from './Pages/OtherDasboards';
 import List from './Pages/List';
 import SliderComponent from './Pages/Crop';
 import MusicBattle from './Pages/MusicBattle';
+import FriendsUpload from './Pages/FriendsUpload';
 
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
         <Route path='/signup' element={<SignUppage/>}/>
         <Route path='/dashboard' element={<Dashboard/>}/>
         <Route path='/edit/:filename' element={<EditAudio/>}/>
+        <Route path='/friendsposts' element={<FriendsUpload/>}/>
         <Route path='/list' element={<List/>}/>
         <Route path='/accounts/:id' element={<OtherDashboards/>}/>
         <Route path='/crop/:filename' element={<SliderComponent/>}/>
