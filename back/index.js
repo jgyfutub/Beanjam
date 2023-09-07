@@ -230,6 +230,10 @@ app.post('/uploadmix',upload1.single('audio'),async(req,res)=>{
 res.json({"message":req.query.id+'_'+req.file.originalname})
 })
 
+app.get('/getposts',async(req,res)=>{
+    const response=await UserDetail.find({_id:req.query.id})
+    console.log(response)
+})
 app.post("/readyforbattle",async(req,res)=>{
     const response= await ReadyForBattle.find({})
     console.log(response)
@@ -244,6 +248,7 @@ app.post("/readyforbattle",async(req,res)=>{
     newwarrior.save()}
     res.json(response)
 })
+
 app.get('/warriors',async(req,res)=>{
     const response= await ReadyForBattle.find({})
     console.log(response)
