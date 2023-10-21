@@ -8,6 +8,26 @@
     background-color: rgb(5, 88, 88);
     color: white;
 }
+.HomePage{
+    margin-top: 100px;
+}
+
+.HomePage div{
+    display:grid;
+    row-gap: 30px;
+    justify-content: center;
+}
+.HomePage div button{
+    width: 250px;
+    color: white;
+    background-color: rgb(7, 178, 7);
+    height: 50px;
+    border-width: 0px;
+    border-radius: 10px;
+}
+.HomePage div button:hover{
+    background-color:rgb(8, 139, 8) ;
+}
 .buttonname{
     background-color: rgb(7, 178, 7);
     margin-left: 30px;
