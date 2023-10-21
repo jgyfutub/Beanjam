@@ -23,12 +23,13 @@ else if(currentUser_!=null){
     axios.get('http://localhost:8080/aboutaccounts?id='+currentUser_.id)
         .then((response)=>{
             console.log(response)
+            if (response.data.length!=0){
             for(const i of response.data[0].followers){
                 setfollowers([...followers,i])
             }
             for(const i of response.data[0].following){
                 setfollowing([...following,i])
-            }
+            }}
         })
 }
     },[])

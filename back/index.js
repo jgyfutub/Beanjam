@@ -204,7 +204,7 @@ app.post('/likepost',async(req,res)=>{
 })
 app.post('/follow',async(req,res)=>{
     const response=await UserDetail.find({_id:req.query.id})
-    console.log(response[0].following)
+    console.log(response)
     if (response[0].following.includes(req.query.userid)){
         const response1=await UserDetail.findOneAndUpdate({_id:req.query.id},{$pull:{following:req.query.userid}})
         const response2=await UserDetail.findOneAndUpdate({_id:req.query.userid},{$pull:{followers:req.query.id}})

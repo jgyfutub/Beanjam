@@ -20,6 +20,8 @@ export default function OtherDashboards(){
 
     }
     const handleFollow=async(e)=>{
+        console.log(id+"hbjkjok")
+        console.log(userid)
         const response=await axios.post('http://localhost:8080/follow?id='+id+'&userid='+userid.id)
         window.location.reload()
     }
