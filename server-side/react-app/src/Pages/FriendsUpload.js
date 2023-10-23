@@ -25,8 +25,8 @@ else if(currentUser_!=null){
                 axios.get('http://localhost:8080/getposts?id='+i)
                 .then((response)=>{
                     console.log(response)
-                    for (const i of response.data.posts){
-                        setfollowingcontent(prevposts=>[...prevposts,i])
+                    for (const j of response.data.posts){
+                        setfollowingcontent(prevposts=>[...prevposts,j])
                     }
                 })
             }
@@ -39,11 +39,10 @@ else if(currentUser_!=null){
     return (
         <div>
         <Header/>
-        <div className="audiobox">
         {followingcontent.map((audio,index)=>{
                 return (
                     <div>
-                    <p>{audio.text}</p>
+                    <p>{audio.text}rctvghbjnkm</p>
                     <audio controls autoplay muted>
                     <source index={index} src={"./audios/"+audio.Audio} type="audio/wav"/>
                      Your browser does not support the audio element.
@@ -52,13 +51,6 @@ else if(currentUser_!=null){
                     </div>
                 )
             })}
-            <audio controls>
-            <source type="audio/wav"/>
-                Your browser does not support the audio element.
-            </audio>
-            <p>likes: 0</p>
-            <button >Like</button>
-            </div>
         </div>
 
     )

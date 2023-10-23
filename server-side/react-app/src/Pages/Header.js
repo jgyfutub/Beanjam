@@ -15,13 +15,16 @@ export default function Header(props){
         await localStorage.removeItem('audio')
         navigate('/')
     }
+    const HandleSearch=async(e)=>{
+        console.log("Search")
+    }
     useEffect(() => {
         console.log(bool); 
       }, [bool]);
     return <div>
     <div className="Header">
             <button onClick={handleClick}>≡</button>
-            <input type="search" className="search" placeholder="Search any User..."/>
+            <input type="search" className="search" placeholder="Search any User..." onClick={HandleSearch}/>
             <p>Beanjam</p>
         </div>
         {bool ? (
