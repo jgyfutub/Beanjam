@@ -30,8 +30,6 @@ export default function Header(props){
             <hr/>
             <button onClick={()=>{navigate('/dashboard')}}>Home Page</button>
             <hr/>
-            <button onClick={()=>{navigate('/Aigenerator')}}>Friends Uploads</button>
-            <hr/>
             <button onClick={()=>{navigate('/musicbattle')}}>Start Music Battle</button>
             <hr/>
             <button onClick={()=>{navigate('/list')}}>Followers and Following</button>

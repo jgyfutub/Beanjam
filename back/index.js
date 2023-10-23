@@ -64,6 +64,7 @@ const AudioSchema=new Schema({
     id:String,
     Audio:String,
     text:String,
+    time:Number,
     likes:[String]
 })
  
@@ -150,6 +151,7 @@ app.post('/uploadaudio',upload.single('audio'),async(req,res)=>{
             id:req.body.id,
             Audio:req.body.id+'_'+req.file.originalname,
             text:req.body.text,
+            time:Date.now(),
             likes:[]
         })
         newAudio.save()
